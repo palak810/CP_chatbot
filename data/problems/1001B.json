@@ -1,0 +1,12 @@
+{
+  "id": "1001B",
+  "contest_id": 1001,
+  "problem_letter": "B",
+  "title": "B. Generate Bell state",
+  "statement": "You are given two qubits in state  and an integer index. Your task is to create one of the Bell states on them according to the index:\nYou have to implement an operation which takes an array of 2 qubits and an integer as an input and has no output. The \"output\" of your solution is the state in which it left the input qubits.\nYour code should have the following signature:",
+  "tags": [
+    "*special problem",
+    "*1400"
+  ],
+  "editorial": ""
+}
