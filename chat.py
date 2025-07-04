@@ -7,7 +7,7 @@ import google.generativeai as genai
 import re
 
 
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+genai.configure(api_key=st.secrets["API_KEY"])
 
 
 @st.cache_resource

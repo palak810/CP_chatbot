@@ -1,0 +1,18 @@
+{
+    "id": "1006F",
+    "contest_id": 1006,
+    "problem_letter": "F",
+    "title": "F. Xor-Paths",
+    "statement": "There is a rectangular grid of size n  m. Each cell has a number written on it; the number on the cell (i, j) is a_{i, j}. Your task is to calculate the number of paths from the upper-left cell (1, 1) to the bottom-right cell (n, m) meeting the following constraints:\nFind the number of such paths in the given grid.\nThe first line of the input contains three integers n, m and k (1  n, m  20, 0  k  10^{18}) — the height and the width of the grid, and the number k.\nThe next n lines contain m integers each, the j-th element in the i-th line is a_{i, j} (0  a_{i, j}  10^{18}).\nPrint one integer — the number of paths from (1, 1) to (n, m) with xor sum equal to k.\nAll the paths from the first example: \nAll the paths from the second example: ",
+    "input": "The first line of the input contains three integers n, m and k (1 ≤ n, m ≤ 20, 0 ≤ k ≤ 10^{18}) — the height and the width of the grid, and the number k.",
+    "output": "Print one integer — the number of paths from ($$$1, 1$$$) to ($$$n, m$$$) with xor sum equal to $$$k$$$.",
+    "time_limit": "3 seconds",
+    "memory_limit": "256 megabytes",
+    "tags": [
+        "bitmasks",
+        "brute force",
+        "dp",
+        "meet-in-the-middle",
+        "*2100"
+    ]
+}

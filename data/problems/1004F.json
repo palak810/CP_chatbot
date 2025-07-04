@@ -1,0 +1,17 @@
+{
+    "id": "1004F",
+    "contest_id": 1004,
+    "problem_letter": "F",
+    "title": "F. Sonya and Bitwise OR",
+    "statement": "Sonya has an array a_1, a_2, , a_n consisting of n integers and also one non-negative integer x. She has to perform m queries of two types:\nCan you help Sonya perform all her queries?\nBitwise OR is a binary operation on a pair of non-negative integers. To calculate the bitwise OR of two numbers, you need to write both numbers in binary notation. The result is a number, in binary, which contains a one in each digit if there is a one in the binary notation of at least one of the two numbers. For example, 10 OR 19 = 1010_2 OR 10011_2 = 11011_2 = 27.\nThe first line contains three integers n, m, and x (1 n, m 10^5, 0 x<2^{20}) — the number of numbers, the number of queries, and the constant for all queries.\nThe second line contains n integers a_1, a_2, , a_n (0 a_i<2^{20}) — numbers of the array.\nThe following m lines each describe an query. A line has one of the following formats:\nFor each query of type 2, print the number of subarrays such that the bitwise OR of all the numbers in the range is at least x.\nIn the first example, there are an array [0, 3, 6, 1] and queries: \nIn the second example, there are an array [6, 0, 3, 15, 2] are queries: ",
+    "input": "The first line contains three integers n, m, and x (1≤q n, m≤q 10^5, 0≤q x<2^{20}) — the number of numbers, the number of queries, and the constant for all queries.",
+    "output": "For each query of type 2, print the number of subarrays such that the bitwise OR of all the numbers in the range is at least $$$x$$$.",
+    "time_limit": "4 seconds",
+    "memory_limit": "512 megabytes",
+    "tags": [
+        "bitmasks",
+        "data structures",
+        "divide and conquer",
+        "*2600"
+    ]
+}

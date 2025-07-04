@@ -1,68 +1,76 @@
+from bs4 import BeautifulSoup
+import cloudscraper
+import sys
 import os
 import json
-import time
-from bs4 import BeautifulSoup
-import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import re
+from config import PROBLEMS_DIR
 
-PROBLEMS_DIR = 'data/problems'
-os.makedirs(PROBLEMS_DIR, exist_ok=True)
+sys.stdout.reconfigure(encoding='utf-8')
 
-def scrape_editorial(problem_id, contest_id, letter):
-    options = uc.ChromeOptions()
-    options.add_argument('--headless')
-    driver = uc.Chrome(options=options)
-    url = f"https://codeforces.com/contest/{contest_id}/problem/{letter}"
+def scrap_ps(url, contest_id, problem_letter):
+    request = cloudscraper.create_scraper()
+    html_text = request.get(url).text
+    soup = BeautifulSoup(html_text, 'lxml')
 
-    editorial_text = ""
-    try:
-        driver.get(url)
-        # Try to find the "Tutorial (en)" link
-        try:
-            tutorial_link = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.LINK_TEXT, "Tutorial (en)"))
-            )
-            tutorial_link.click()
-        except Exception:
-            print(f"No 'Tutorial (en)' link for {problem_id}")
-            return
+    title_div = soup.find("div", class_="title")
+    problem_div = soup.find("div", class_="problem-statement")
+    if not title_div or not problem_div:
+        return
 
-        # Switch to the new window
-        WebDriverWait(driver, 10).until(EC.number_of_windows_to_be(2))
-        driver.switch_to.window(driver.window_handles[1])
+    name = title_div.text.strip()
+    paragraphs = problem_div.find_all("p")
+    statement = "\n".join([
+        re.sub(r"\\[a-zA-Z]+", "", re.sub(r'\$\$\$(.*?)\$\$\$', r'\1', p.text))
+        for p in paragraphs
+    ])
 
-        # Wait for the blog content to load
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "ttypography")))
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-        # Extract all text from the blog post
-        content_div = soup.find("div", class_="ttypography")
-        if content_div:
-            editorial_text = content_div.get_text(separator="\n", strip=True)
-        else:
-            print(f"Editorial content not found for {problem_id}")
+    tags = [tag.text.strip() for tag in soup.find_all("span", class_="tag-box")]
+    time_limit = soup.find("div", class_="time-limit").text.replace("time limit per test", "").strip()
+    memory_limit = soup.find("div", class_="memory-limit").text.replace("memory limit per test", "").strip()
 
-    except Exception as e:
-        print(f"❌ Failed to get editorial for {problem_id}: {e}")
-    finally:
-        driver.quit()
+    input_spec = soup.find("div", class_="input-specification")
+    input_text = input_spec.p.text if input_spec and input_spec.p else ""
+    input_text = re.sub(r'\$\$\$(.*?)\$\$\$', r'\1', input_text)
+    input_text = re.sub(r'\\le', '≤', input_text)
+    input_text = re.sub(r'\\ge', '≥', input_text)
+    input_text = input_text.replace('&lt;', '<').replace('&gt;', '>')
 
-    # Save editorial to the JSON file
-    path = os.path.join(PROBLEMS_DIR, f"{problem_id}.json")
-    data = {}
-    if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    data['editorial'] = editorial_text
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    output_spec = soup.find("div", class_="output-specification")
+    output_text = output_spec.p.text if output_spec and output_spec.p else ""
+
+    problem_id = f"{contest_id}{problem_letter}"
+    file_path = os.path.join(PROBLEMS_DIR, f"{problem_id}.json")
+    os.makedirs(PROBLEMS_DIR, exist_ok=True)
+
+    data = {
+        "id": problem_id,
+        "contest_id": int(contest_id),
+        "problem_letter": problem_letter,
+        "title": name,
+        "statement": statement,
+        "input": input_text,
+        "output": output_text,
+        "time_limit": time_limit,
+        "memory_limit": memory_limit,
+        "tags": tags
+    }
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+    print(problem_id)
+
 
 if __name__ == '__main__':
-    for filename in os.listdir(PROBLEMS_DIR):
-        if filename.endswith(".json"):
-            pid = filename.replace(".json", "")
-            contest = ''.join(filter(str.isdigit, pid))
-            letter = ''.join(filter(str.isalpha, pid))
-            print(f"📘 Scraping editorial for {pid}")
-            scrape_editorial(pid, contest, letter)
+    count = 0
+    max_count = 200
+
+    for contest_id in range(1000, 1050):
+        for letter in "ABCDEFGH":
+            if count >= max_count:
+                sys.exit(0)
+
+            url = f"https://codeforces.com/contest/{contest_id}/problem/{letter}"
+            scrap_ps(url, contest_id, letter)
+            count += 1

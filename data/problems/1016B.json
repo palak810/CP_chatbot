@@ -1,13 +1,16 @@
 {
-  "id": "1016B",
-  "contest_id": 1016,
-  "problem_letter": "B",
-  "title": "B. Segment Occurrences",
-  "statement": "You are given two strings $$$s$$$ and $$$t$$$, both consisting only of lowercase Latin letters.\nThe substring $$$s[l..r]$$$ is the string which is obtained by taking characters $$$s_l, s_{l + 1}, \\dots, s_r$$$ without changing the order.\nEach of the occurrences of string $$$a$$$ in a string $$$b$$$ is a position $$$i$$$ ($$$1 \\le i \\le |b| - |a| + 1$$$) such that $$$b[i..i + |a| - 1] = a$$$ ($$$|a|$$$ is the length of string $$$a$$$).\nYou are asked $$$q$$$ queries: for the $$$i$$$-th query you are required to calculate the number of occurrences of string $$$t$$$ in a substring $$$s[l_i..r_i]$$$.\nThe first line contains three integer numbers $$$n$$$, $$$m$$$ and $$$q$$$ ($$$1 \\le n, m \\le 10^3$$$, $$$1 \\le q \\le 10^5$$$) — the length of string $$$s$$$, the length of string $$$t$$$ and the number of queries, respectively.\nThe second line is a string $$$s$$$ ($$$|s| = n$$$), consisting only of lowercase Latin letters.\nThe third line is a string $$$t$$$ ($$$|t| = m$$$), consisting only of lowercase Latin letters.\nEach of the next $$$q$$$ lines contains two integer numbers $$$l_i$$$ and $$$r_i$$$ ($$$1 \\le l_i \\le r_i \\le n$$$) — the arguments for the $$$i$$$-th query.\nPrint $$$q$$$ lines — the $$$i$$$-th line should contain the answer to the $$$i$$$-th query, that is the number of occurrences of string $$$t$$$ in a substring $$$s[l_i..r_i]$$$.\nIn the first example the queries are substrings: \"cod\", \"deforces\", \"fo\" and \"for\", respectively.",
-  "tags": [
-    "brute force",
-    "implementation",
-    "*1300"
-  ],
-  "editorial": ""
+    "id": "1016B",
+    "contest_id": 1016,
+    "problem_letter": "B",
+    "title": "B. Segment Occurrences",
+    "statement": "You are given two strings s and t, both consisting only of lowercase Latin letters.\nThe substring s[l..r] is the string which is obtained by taking characters s_l, s_{l + 1}, , s_r without changing the order.\nEach of the occurrences of string a in a string b is a position i (1  i  |b| - |a| + 1) such that b[i..i + |a| - 1] = a (|a| is the length of string a).\nYou are asked q queries: for the i-th query you are required to calculate the number of occurrences of string t in a substring s[l_i..r_i].\nThe first line contains three integer numbers n, m and q (1  n, m  10^3, 1  q  10^5) — the length of string s, the length of string t and the number of queries, respectively.\nThe second line is a string s (|s| = n), consisting only of lowercase Latin letters.\nThe third line is a string t (|t| = m), consisting only of lowercase Latin letters.\nEach of the next q lines contains two integer numbers l_i and r_i (1  l_i  r_i  n) — the arguments for the i-th query.\nPrint q lines — the i-th line should contain the answer to the i-th query, that is the number of occurrences of string t in a substring s[l_i..r_i].\nIn the first example the queries are substrings: \"cod\", \"deforces\", \"fo\" and \"for\", respectively.",
+    "input": "The first line contains three integer numbers n, m and q (1 ≤ n, m ≤ 10^3, 1 ≤ q ≤ 10^5) — the length of string s, the length of string t and the number of queries, respectively.",
+    "output": "Print $$$q$$$ lines — the $$$i$$$-th line should contain the answer to the $$$i$$$-th query, that is the number of occurrences of string $$$t$$$ in a substring $$$s[l_i..r_i]$$$.",
+    "time_limit": "2 seconds",
+    "memory_limit": "256 megabytes",
+    "tags": [
+        "brute force",
+        "implementation",
+        "*1300"
+    ]
 }

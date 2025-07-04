@@ -1,0 +1,17 @@
+{
+    "id": "1009F",
+    "contest_id": 1009,
+    "problem_letter": "F",
+    "title": "F. Dominant Indices",
+    "statement": "You are given a rooted undirected tree consisting of n vertices. Vertex 1 is the root.\nLet's denote a depth array of vertex x as an infinite sequence [d_{x, 0}, d_{x, 1}, d_{x, 2}, ], where d_{x, i} is the number of vertices y such that both conditions hold:\nThe dominant index of a depth array of vertex x (or, shortly, the dominant index of vertex x) is an index j such that:\nFor every vertex in the tree calculate its dominant index.\nThe first line contains one integer n (1  n  10^6) — the number of vertices in a tree.\nThen n - 1 lines follow, each containing two integers x and y (1  x, y  n, x  y). This line denotes an edge of the tree.\nIt is guaranteed that these edges form a tree.\nOutput n numbers. i-th number should be equal to the dominant index of vertex i.",
+    "input": "The first line contains one integer n (1 ≤ n ≤ 10^6) — the number of vertices in a tree.",
+    "output": "Output $$$n$$$ numbers. $$$i$$$-th number should be equal to the dominant index of vertex $$$i$$$.",
+    "time_limit": "4.5 seconds",
+    "memory_limit": "512 megabytes",
+    "tags": [
+        "data structures",
+        "dsu",
+        "trees",
+        "*2300"
+    ]
+}
